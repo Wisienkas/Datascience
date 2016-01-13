@@ -37,9 +37,15 @@ plotcluster(test[, c("x", "y")], test[, "labels"], col = ifelse(model == test[, 
 
 ## EXAMPLE OF Decision Tree ## 
 install.packages("rpart")
-library(rpart)
 install.packages("rpart.plot")
+install.packages("FSelector")
+library(rpart)
 library(rpart.plot)
+library(FSelector)
+
+barplot(height = as.vector(as.matrix(information.gain(labels ~ x + y, train))), 
+        ylab = "Entropy", xlab = "Variable", main = "Information Gain",
+        ylim = c(0,1), names = c("x", "y"))
 tree <- rpart(labels ~ x + y, method = "class", data = train, control=rpart.control(minsplit=2, minbucket=1, cp=0.001))
 prp(tree)
 
