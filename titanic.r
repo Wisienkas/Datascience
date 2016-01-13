@@ -11,6 +11,7 @@ inspect(rules_apriori.sorted[1:10])
 
 rules_eclat <- eclat(titanic.raw, 
       parameter = list(supp = 0.01, minlen = 2, 
+                       rhs = c("Survived=Yes", "Survived=No"),
                        target = "closed frequent itemsets"))
 
 rules_eclat.sorted <- sort(rules_eclat, by="support")

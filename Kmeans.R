@@ -11,6 +11,11 @@ plot(data)
 km <- kmeans(data, 5)
 plotcluster(data, km$cluster)
 
+## EXAMPLE OF HCLUST ##
+hc <- hclust(dist(data[1:50,]))
+plot(hc)
+
+
 ## EXAMPLE OF KNN ## 
 # Adding label
 labels = km$cluster
@@ -31,3 +36,14 @@ sum(model == test[, "labels"]) / nrow(test)
 plotcluster(test[, c("x", "y")], test[, "labels"], col = ifelse(model == test[, "labels"], "blue", "red"))
 
 ## EXAMPLE OF Decision Tree ## 
+install.packages("rpart")
+library(rpart)
+install.packages("rpart.plot")
+library(rpart.plot)
+tree <- rpart(labels ~ x + y, method = "class", data = train, control=rpart.control(minsplit=2, minbucket=1, cp=0.001))
+prp(tree)
+
+res <- predict(tree, test, type = "class")
+table(res, test[, "labels"])
+sum(res == test[, "labels"]) / nrow(test)
+plotcluster(test[, c("x", "y")], test[, "labels"], col = ifelse(res == test[, "labels"], "blue", "red"))
