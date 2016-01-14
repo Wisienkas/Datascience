@@ -3,7 +3,7 @@ p2p_edges <- read.csv2(file = "p2p-Gnutella06.txt", sep = "\t", comment.char = "
 # Setting headers
 names(p2p_edges) <- c("from", "to")
 
-p2p_edges <- p2p_edges[1:1000,]
+p2p_edges <- p2p_edges[1:100,]
 
 # Loading library
 install.packages("igraph")
@@ -60,5 +60,5 @@ hive3 <- mineHPD(hive2, option = "axis <- source.man.sink")
 # Remove nodes going from and to the same node
 hive4 <- mineHPD(hive3, option = "remove zero edge")
 # Plotting the hive
-plotHive(hive4, method = "abs", bkgnd = "white", axLabs = c("source", "hub", "sink"), axLab.pos = 1)
+plotHive(hive4, method = "abs", bkgnd = "orange", axLabs = c("source", "hub", "sink"), axLab.pos = 1)
 
